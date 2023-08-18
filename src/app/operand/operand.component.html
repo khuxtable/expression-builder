@@ -1,0 +1,23 @@
+<form [formGroup]="_form">
+	<p-panel header="Expression: {{expression}}">
+		<p-dropdown formControlName="operator"
+		            [options]="operators"
+		            optionLabel="name"
+		            name="operator"
+		            (onChange)="operatorChange($event)"
+		/>
+		<ng-container *ngIf="_operatorType == OperatorType.VALUE">
+			&nbsp;<input pInputText formControlName="value"/>
+		</ng-container>
+		<ng-container *ngIf="_operatorType != OperatorType.NONE && _operatorType != OperatorType.VALUE">
+			<br/><br/>
+		</ng-container>
+		<ng-container *ngIf="_operatorType == OperatorType.POSTFIX || _operatorType == OperatorType.INFIX">
+			<operand formControlName="left"/>
+		</ng-container>
+
+		<ng-container *ngIf="_operatorType == OperatorType.PREFIX || _operatorType == OperatorType.INFIX">
+			<operand formControlName="right"/>
+		</ng-container>
+	</p-panel>
+</form>
